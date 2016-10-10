@@ -1,5 +1,5 @@
 package com.example.student.omnitrix;
-w
+
 public class Predictions {
 
     private static Predictions predictions;
@@ -7,7 +7,8 @@ public class Predictions {
 
     private Predictions() {
         answers = new String[] {
-                "You have just recieved Four-Arms "
+                "You have just recieved Four-Arms!",
+                "You have recieved nothing LOL."
         };
     }
 
@@ -19,6 +20,6 @@ public class Predictions {
     }
 
     public String getPrediction() {
-        
+        return answers[1];
     }
 }
