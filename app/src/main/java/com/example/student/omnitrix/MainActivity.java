@@ -5,9 +5,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.FloatMath;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +26,22 @@ public class MainActivity extends AppCompatActivity {
     private final SensorEventListener sensorListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
 
+            previousAcceleration = currentAcceleration;
+            currentAcceleration = (float)Math.sqrt(x * x + y * y + z * z);
+            float delta = currentAcceleration - previousAcceleration;
+            acceleration = acceleration * 0.9f + delta;
+
+            if(acceleration > 15) {
+
+                MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.sound);
+
+                Toast toast = Toast.makeText(getApplication(), "THE OMNITRIX HAS SHAKEN", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
 
         @Override
@@ -62,14 +80,3 @@ public class MainActivity extends AppCompatActivity {
         sensorManager.unregisterListener(sensorListener);
     }
 }
-
-styles.xml
-<resources>
-
-<!-- Base application theme. -->
-<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-<!-- Customize your theme here. -->
-<item name="android:windowFullscreen">true</item>
-</style>
-
-</resources>
