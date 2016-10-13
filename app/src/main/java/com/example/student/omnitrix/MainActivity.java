@@ -38,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
             if(acceleration > 15) {
 
                 MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.sound);
+                mediaPlayer.start();
 
-                Toast toast = Toast.makeText(getApplication(), "THE OMNITRIX HAS SHAKEN", Toast.LENGTH_SHORT);
+                String ans = Predictions.get().getPrediction();
+                answerText.setText(ans);
+
+                Toast toast = Toast.makeText(getApplication(), "THE OMNITRIX HAS BEEN SHAKEN", Toast.LENGTH_SHORT);
                 toast.show();
             }
         }
@@ -64,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         answerText = (TextView) findViewById(R.id.answerText);
         answerText.setText(Predictions.get().getPrediction());
-        answerText.setText("You have recieved FourArms");
+        answerText.setText("Welcome To The Omnitrix!");
 
     }
 
